@@ -32,10 +32,15 @@ export class AppComponent implements OnInit {
   }
 
   getHeroes(): void {
-    this.heroes = this.heroService.getHeroes();
+    this.heroService.getHeroes().then(this.setHeroes.bind(this));
   }
 
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+  }
+
+  setHeroes(heroes: Hero[]): Hero[] {
+    this.heroes = heroes;
+    return this.heroes;
   }
 }
