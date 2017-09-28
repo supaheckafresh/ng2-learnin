@@ -1,26 +1,48 @@
 import { Injectable } from '@angular/core';
+import { Headers, Http } from '@angular/http';
+
+import 'rxjs/add/operator/toPromise';
+
 import { Hero } from './hero';
-import { HEROES } from './mock-heroes';
 
 @Injectable()
 export class HeroService {
+  private headers = new Headers({ 'Content-Type': 'application/json' });
+  private heroesUrl = 'api/heroes';
+  constructor(private http: Http) {}
+
   heroes: Hero[] = [];
   topHeroesLimit = 5;
 
   getHero(id: number): Promise<Hero> {
-    return this.getHeroes().then(heroes => heroes.find(hero => hero.id === id));
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.get(url)
+      .toPromise()
+      .then(resp => resp.json().data as Hero)
+      .catch(this.handleError);
   }
 
   getHeroes(): Promise<Hero[]> {
-    if (this.heroes.length) {
-      return Promise.resolve(this.heroes);
-    }
+    return this.http.get(this.heroesUrl)
+      .toPromise()
+      .then(resp => {
+        this.heroes = resp.json().data as Hero[];
+        return this.heroes;
+      })
+      .catch(this.handleError);
+  }
 
-    return new Promise(resolve => {
-      setTimeout(() => {
-        this.heroes = HEROES;
-        resolve(this.heroes);
-      }, 10);
-    });
+  handleError(err: any): Promise<any> {
+    console.error('ERROR', err);
+    return Promise.reject(err.message || err);
+  }
+
+  update(hero: Hero): Promise<Hero> {
+    const url = `${this.heroesUrl}/${hero.id}`;
+    return this.http
+      .put(url, JSON.stringify(hero), { headers: this.headers })
+      .toPromise()
+      .then(() => hero)
+      .catch(this.handleError);
   }
 }
