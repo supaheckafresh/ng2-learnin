@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { FormsModule} from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
+import { Tool } from './tool.service';
+import { HeroService } from './hero.service';
+
 import { AppComponent } from './app.component';
 import { HeroDetailComponent } from './hero-detail.component';
 import { HeroesComponent } from './heroes.component';
-import { HeroService } from './hero.service';
 import { DashboardComponent } from './dashboard.component';
 
 @NgModule({
@@ -35,7 +37,10 @@ import { DashboardComponent } from './dashboard.component';
       }
     ])
   ],
-  providers: [HeroService],
+  providers: [
+    Tool,
+    HeroService
+  ],
   bootstrap: [AppComponent]
 })
 

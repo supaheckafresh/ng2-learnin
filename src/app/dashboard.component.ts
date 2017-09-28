@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Hero } from './hero';
+import { Tool } from './tool.service';
 import { HeroService } from './hero.service';
 
 @Component({
@@ -12,7 +13,7 @@ export class DashboardComponent implements OnInit {
   allHeroes: Hero[] = [];
   heroes: Hero[] = [];
 
-  constructor(private heroService: HeroService) { }
+  constructor(private heroService: HeroService, private tool: Tool) { }
 
   ngOnInit(): void {
     this.heroService.getHeroes().then(this.setTopHeroes.bind(this, this.heroService.topHeroesLimit));
@@ -30,7 +31,7 @@ export class DashboardComponent implements OnInit {
   }
 
   limitOpts(): Array<number> {
-    const opts = Array.from({ length: this.allHeroes.length }, (val, key) => key);
+    const opts = this.tool.range(this.allHeroes.length);
     opts.shift();
     return opts;
   }

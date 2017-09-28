@@ -9,10 +9,7 @@ export class Tool {
    * @param zeroBased
    * @return {Array<number>}
    */
-  range(length: number, zeroBased: boolean): Array<number> {
-    if (zeroBased !== false) {
-      zeroBased = true;
-    }
+  range(length: number, zeroBased: boolean = true): Array<number> {
     const arr = Array.from({ length }, (val, key) => key);
 
     // for 1-based array:
@@ -20,6 +17,7 @@ export class Tool {
       arr.shift();
       arr.push(length);
     }
+
     return arr;
   }
 
