@@ -10,10 +10,13 @@ import { HeroService } from './hero.service';
 })
 
 export class DashboardComponent implements OnInit {
+  constructor(
+    private heroService: HeroService,
+    private tool: Tool
+  ) {}
+
   allHeroes: Hero[] = [];
   heroes: Hero[] = [];
-
-  constructor(private heroService: HeroService, private tool: Tool) { }
 
   ngOnInit(): void {
     this.heroService.getHeroes().then(this.setTopHeroes.bind(this, this.heroService.topHeroesLimit));
