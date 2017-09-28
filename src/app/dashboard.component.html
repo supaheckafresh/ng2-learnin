@@ -1,5 +1,5 @@
 <h3>Top Heroes</h3>
-<select [(ngModel)]="limit" title="limit" (change)="setTopHeroes(limit)">
+<select [(ngModel)]="heroService.topHeroesLimit" title="limit" (change)="setTopHeroes(heroService.topHeroesLimit)">
     <option *ngFor="let opt of limitOpts()" [ngValue]="opt">{{opt}}</option>
 </select>
 <div class="grid grid-pad">

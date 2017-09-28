@@ -4,9 +4,18 @@ import { HEROES } from './mock-heroes';
 
 @Injectable()
 export class HeroService {
+  heroes: Hero[] = [];
+  topHeroesLimit = 5;
   getHeroes(): Promise<Hero[]> {
+    if (this.heroes.length) {
+      return Promise.resolve(this.heroes);
+    }
+
     return new Promise(resolve => {
-      setTimeout(() => resolve(HEROES), 10);
+      setTimeout(() => {
+        this.heroes = HEROES;
+        resolve(this.heroes);
+      }, 10);
     });
   }
 }

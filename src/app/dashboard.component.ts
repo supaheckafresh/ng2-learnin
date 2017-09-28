@@ -11,12 +11,11 @@ import { HeroService } from './hero.service';
 export class DashboardComponent implements OnInit {
   allHeroes: Hero[] = [];
   heroes: Hero[] = [];
-  limit = 5;
 
   constructor(private heroService: HeroService) { }
 
   ngOnInit(): void {
-    this.heroService.getHeroes().then(this.setTopHeroes.bind(this, this.limit));
+    this.heroService.getHeroes().then(this.setTopHeroes.bind(this, this.heroService.topHeroesLimit));
   }
 
   setTopHeroes(limit: number, heroes: Hero[]): Hero[] {
