@@ -14,6 +14,17 @@ export class HeroService {
   heroes: Hero[] = [];
   topHeroesLimit = 5;
 
+  create(name: string): Promise<Hero> {
+    return this.http.post(this.heroesUrl, { name })
+      .toPromise()
+      .then(resp => {
+        const hero = resp.json().data as Hero;
+        this.heroes.push(hero);
+        return hero;
+      })
+      .catch(this.handleError);
+  }
+
   getHero(id: number): Promise<Hero> {
     const url = `${this.heroesUrl}/${id}`;
     return this.http.get(url)
