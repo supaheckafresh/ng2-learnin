@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Hero } from './hero';
@@ -17,7 +17,7 @@ export class HeroesComponent implements OnInit {
     private router: Router
   ) {}
 
-  @Input() heroes: Hero[];
+  heroes: Hero[];
   selectedHero: Hero;
 
   ngOnInit(): void {
