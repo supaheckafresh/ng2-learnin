@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Hero } from './hero';
@@ -17,7 +17,7 @@ export class HeroesComponent implements OnInit {
     private router: Router
   ) {}
 
-  heroes: Hero[];
+  @Input() heroes: Hero[];
   selectedHero: Hero;
 
   ngOnInit(): void {
@@ -33,6 +33,14 @@ export class HeroesComponent implements OnInit {
       });
   }
 
+  deleteHero(id: number): void {
+    this.heroService.deleteHero(id)
+      .then(this.getHeroes.bind(this))
+      .then(() => {
+        if (this.selectedHero && this.selectedHero.id === id) { this.selectedHero = null; }
+      });
+  }
+
   detail(): void {
     this.router.navigate(['/detail', this.selectedHero.id]);
   }
@@ -45,8 +53,8 @@ export class HeroesComponent implements OnInit {
     this.selectedHero = hero;
   }
 
-  setHeroes(heroes: Hero[]): Hero[] {
+  setHeroes(heroes: Hero[]): Promise<Hero[]> {
     this.heroes = heroes;
-    return this.heroes;
+    return Promise.resolve(this.heroes);
   }
 }

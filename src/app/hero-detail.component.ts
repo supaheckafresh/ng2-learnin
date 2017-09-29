@@ -14,9 +14,11 @@ import { HeroService } from './hero.service';
 })
 
 export class HeroDetailComponent implements OnInit {
-  constructor(private heroService: HeroService,
-              private route: ActivatedRoute,
-              private location: Location) {}
+  constructor(
+    private heroService: HeroService,
+    private route: ActivatedRoute,
+    private location: Location
+  ) {}
 
   @Input() hero: Hero;
 
@@ -26,9 +28,13 @@ export class HeroDetailComponent implements OnInit {
       .subscribe(hero => this.hero = hero);
   }
 
-
   back(): void {
     this.location.back();
+  }
+
+  deleteHero(): void {
+    this.heroService.deleteHero(this.hero.id)
+      .then(this.back.bind(this));
   }
 
   save(): void {

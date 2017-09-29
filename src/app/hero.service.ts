@@ -15,13 +15,21 @@ export class HeroService {
   topHeroesLimit = 5;
 
   create(name: string): Promise<Hero> {
-    return this.http.post(this.heroesUrl, { name })
+    return this.http.post(this.heroesUrl, JSON.stringify({ name }), { headers: this.headers })
       .toPromise()
       .then(resp => {
         const hero = resp.json().data as Hero;
         this.heroes.push(hero);
         return hero;
       })
+      .catch(this.handleError);
+  }
+
+  deleteHero(id: number): Promise<void> {
+    const url = `${this.heroesUrl}/${id}`;
+    return this.http.delete(url, { headers: this.headers })
+      .toPromise()
+      .then(resp => this.heroes = this.heroes.filter(h => h.id !== id))
       .catch(this.handleError);
   }
 
