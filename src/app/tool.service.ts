@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class Tool {
   /**
-   * Return an zero or one-based array of numbers for a range.
+   * Return a 0 or 1-based array of numbers for a range.
    *
    * @param length
    * @param zeroBased

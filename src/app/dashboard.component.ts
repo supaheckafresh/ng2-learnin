@@ -38,9 +38,7 @@ export class DashboardComponent implements OnInit {
   }
 
   limitOpts(): Array<number> {
-    const opts = this.tool.range(this.allHeroes.length);
-    opts.shift();
-    return opts;
+    return this.tool.range(this.allHeroes.length, false);
   }
 }
 
