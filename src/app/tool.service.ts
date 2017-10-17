@@ -10,7 +10,7 @@ export class Tool {
    * @param {string} delimiter
    * @returns {string}
    */
-  static normalize(str: string, delimiter: string): string {
+  normalize(str: string, delimiter: string): string {
 
     if (!str) {
       return '';
@@ -30,7 +30,7 @@ export class Tool {
    * @param {Function} func
    * @return {Function}
    */
-  static promisify(func: Function): () => any {
+  promisify(func: Function): () => any {
     return function (...args) {
       return new Promise((resolve, reject) => {
         try {
@@ -49,7 +49,7 @@ export class Tool {
    * @param zeroBased
    * @return {Array<number>}
    */
-  static range(length: number, zeroBased: boolean = true): Array<number> {
+  range(length: number, zeroBased: boolean = true): Array<number> {
     const arr = Array.from({ length }, (val, key) => key);
 
     // for 1-based array:
