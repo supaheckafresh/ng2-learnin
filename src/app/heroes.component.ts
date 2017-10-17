@@ -3,7 +3,6 @@ import { Router } from '@angular/router';
 
 import { Hero } from './hero';
 import { HeroService } from './hero.service';
-import { HeroDetailComponent } from './hero-detail.component';
 
 @Component({
   selector: 'my-heroes',

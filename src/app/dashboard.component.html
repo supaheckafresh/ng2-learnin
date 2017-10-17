@@ -1,4 +1,5 @@
 <h3>Top Heroes</h3>
+<hero-search></hero-search>
 <select [(ngModel)]="heroService.topHeroesLimit" title="limit" (change)="setTopHeroes(heroService.topHeroesLimit)">
     <option *ngFor="let opt of limitOpts()" [ngValue]="opt">{{opt}}</option>
 </select>
@@ -9,4 +10,3 @@
         </div>
     </a>
 </div>
-<hero-search></hero-search>
